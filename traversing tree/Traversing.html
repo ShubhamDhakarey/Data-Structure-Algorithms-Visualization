@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traversing</title>
+
+    <link rel="stylesheet" href="traverse.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Traversing Tree Operations</h2>
+        <div class="nav-buttons">
+            <button id="inorderButton">Inorder</button>
+            <button id="preOrderButton">Pre order</button>
+            <button id="postOrderButton">Post order</button>
+            <button id="labelOrderButton">Lable order</button>
+        </div>
+    </div>
+
+
+    <h1>Tree Creation</h1>
+
+
+    <button id="createTreeButton" onclick="showOptions()">Create Tree</button>
+
+    <div id="optionButtons" style="display: none;">
+        <button id="randomArrayButton" onclick="createRandomArray()">Random Array</button>
+        <button id="insertValuesButton" onclick="showValuesInput()">Insert Values</button>
+    </div>
+
+    <div id="inputContainer" style="display: none;">
+        <input type="text" id="valuesInput" placeholder="Enter values (comma-separated)">
+        <div id="inputButtonsContainer">
+            <button id="performOperationButton" onclick="insertValuesManually()">Perform Operation</button>
+            <button id="randomArrayButton1" onclick="createRandomArray()" style="display: none;">Random Array</button>
+        </div>
+    </div>
+
+
+
+    <div id="result"></div>
+
+    <div id="treeContainer">
+        <div class="traversal-heading" id="traversalType"></div> <!-- Add this line -->
+        <div id="arrayBoxContainer">
+        </div> <!-- Add this line -->
+        <div id="treeDisplay"></div>
+    </div>
+
+
+</body>
+
+</html>
+<script src="traverse.js"></script>

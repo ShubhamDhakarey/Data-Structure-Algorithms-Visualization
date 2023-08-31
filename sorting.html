@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divided Layout with Boxes</title>
+    <link rel="stylesheet" href="sortingStylesheet.css">
+
+</head>
+
+<body>
+    <div class="left">
+        <!-- Product boxes on the left side -->
+        <div class="product-box" onclick="scrollToRight(1)">
+            <img src="images/bubble_sort.jpg" alt="Product 1">
+            <h3>Bubble Sort</h3>
+        </div>
+        <div class="product-box" onclick="scrollToRight(2)">
+            <img src="images/selection_sort.jpg" alt="Product 2">
+            <h3>Selection Sort</h3>
+        </div>
+        <div class="product-box" onclick="scrollToRight(3)">
+            <img src="images/merge_sort.jpg" alt="Product 3">
+            <h3>Merge Sort</h3>
+        </div>
+        <div class="product-box" onclick="scrollToRight(4)">
+            <img src="images/quick_sort.jpg" alt="Product 4">
+            <h3>Quick Sort</h3>
+        </div>
+        <div class="product-box" onclick="scrollToRight(5)">
+            <img src="images/insertion_sort.jpg" alt="Product 5">
+            <h3>Insertion Sort</h3>
+        </div>
+    </div>
+    <div class="right">
+        <!-- Boxes on the right side -->
+        <div class="top-Text">Click on the Sorting technique you want to learn</div>
+        <div class="right-box" id="right-box-1">
+            <h2>Bubble Sort</h2>
+            <div class="container">
+                <div class="bar-container" id="bubble-sort"></div>
+                <div class="user-input">
+                    <input type="text" id="bubble-user-input-data" placeholder="Enter data separated by commas">
+                    <button onclick="startBubbleSort()">Start Sorting</button>
+                    <button onclick="generateRandomValuesBubble()">Random Value</button> <!-- Add this line -->
+                    <label for="bubble-speed">Animation Speed:</label>
+                    <input type="range" id="bubble-speed" min="100" max="1000" step="100" value="300">
+                </div>
+            </div>
+        </div>
+
+        <div class="right-box" id="right-box-2">
+            <h2>Selection Sort</h2>
+            <div class="container">
+                <div class="bar-container" id="selection-sort"></div>
+                <div class="user-input">
+                    <input type="text" id="selection-user-input-data" placeholder="Enter data separated by commas">
+                    <button id="start-selection-sort">Start Sorting</button>
+                    <button onclick="generateRandomValuesSelection()">Random Value</button> <!-- Add this line -->
+                    <label for="selection-speed">Animation Speed:</label>
+                    <input type="range" id="selection-speed" min="100" max="1000" step="100" value="300">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="right-box" id="right-box-3">
+            <h2>Merge Sort</h2>
+            <div class="container">
+                <div class="bar-container" id="merge-sort"></div>
+                <div class="user-input">
+                    <input type="text" id="merge-user-input-data" placeholder="Enter data separated by commas">
+                    <button id="start-merge-sort" onclick="startMergeSort()">Start Sorting</button>
+                    <button onclick="generateRandomValuesMerge()">Random Value</button> <!-- Add this line -->
+                    <label for="merge-speed">Animation Speed:</label>
+                    <input type="range" id="merge-speed" min="100" max="1000" step="100" value="300">
+                </div>
+
+                <div class="color-box">
+                    <div class="color-indicator" style="background-color:brown;"></div>
+                    <div class="color-label">Swapping</div>
+                    <div class="color-indicator" style="background-color: pink;"></div>
+                    <div class="color-label">Comparing</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="right-box" id="right-box-4">
+            <h2>Quick Sort</h2>
+            <div class="container">
+                <div class="bar-container" id="quick-sort"></div>
+                <div class="user-input">
+                    <input type="text" id="quick-user-input-data" placeholder="Enter data separated by commas">
+                    <button id="start-quick-sort">Start Sorting</button>
+                    <button onclick="generateRandomValuesQuick()">Random Value</button> <!-- Add this line -->
+                    <label for="quick-speed">Animation Speed:</label>
+                    <input type="range" id="quick-speed" min="100" max="1000" step="100" value="300">
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="right-box" id="right-box-5">
+            <h2>Insertion Sort</h2>
+            <div class="container">
+                <div class="bar-container" id="insertion-sort"></div>
+                <div class="user-input">
+                    <input type="text" id="insertion-user-input-data" placeholder="Enter data separated by commas">
+                    <button id="start-insertion-sort">Start Sorting</button>
+                    <button onclick="generateRandomValuesInsertion()">Random Value</button> <!-- Add this line -->
+                    <label for="insertion-speed">Animation Speed:</label>
+                    <input type="range" id="insertion-speed" min="100" max="1000" step="100" value="300">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sortingScript.js"></script>
+
+</body>
+
+</html>

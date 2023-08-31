@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree Creation</title>
+    <link rel="stylesheet" href="binarySearchTreecss.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Binary Tree Operations</h2>
+        <div class="nav-buttons">
+            <button id="insertButton">Insert</button>
+            <!-- <button id="updateButton" onclick="showValuesInput()">Update</button> -->
+            <button id="deleteButton">Delete</button>
+            <button id="searchButton">Search</button>
+            <button id="minButton">Min</button>
+            <button id="maxButton">Max</button>
+            <button id="heightButton">Height</button>
+        </div>
+    </div>
+
+
+    <h1>Binary Search Tree Creation</h1>
+
+
+    <button id="createTreeButton" onclick="showOptions()">Create Tree</button>
+
+    <div id="optionButtons" style="display: none;">
+        <button id="randomArrayButton" onclick="createRandomArray()">Random Array</button>
+        <button id="insertValuesButton" onclick="showValuesInput()">Insert Values</button>
+    </div>
+
+    <div id="inputContainer" style="display: none;">
+        <input type="text" id="valuesInput" placeholder="Enter values (comma-separated)">
+        <div id="inputButtonsContainer">
+            <button id="performOperationButton" onclick="insertValuesManually()">Perform Operation</button>
+            <button id="randomArrayButton1" onclick="createRandomArray()" style="display: none;">Random Array</button>
+        </div>
+    </div>
+
+
+
+    <div id="deletePopup" class="popup">
+        <h3>Delete Node</h3>
+        <input type="text" id="deleteInput" placeholder="Enter value to delete">
+        <button id="performDeleteButton" onclick="performDelete()">Perform Action</button>
+    </div>
+
+
+    <div id="searchPopup" class="popup">
+        <h3>Search Node</h3>
+        <input type="text" id="searchInput" placeholder="Enter value to search">
+        <button id="performSearchButton" onclick="performSearch()">Perform Action</button>
+    </div>
+
+    <div id="insertPopup" class="popup">
+        <h3>Insert Node</h3>
+        <input type="text" id="insertInput" placeholder="Enter value to insert">
+        <button id="performInsertButton" onclick="performInsert()">Perform Action</button>
+    </div>
+
+    <div id="minPopup" class="popup">
+        <h3>Find Minimum</h3>
+        <button id="performMinButton" onclick="performFindMin()">Find Minimum</button>
+    </div>
+
+
+    <div id="maxPopup" class="popup">
+        <h3>Find Maximum</h3>
+        <button id="performMaxButton" onclick="performFindMax()">Find Maximum</button>
+    </div>
+
+
+    <!-- <button id="heightButton">Height</button> -->
+    <div id="heightPopup" class="popup">
+        <h3>Tree Height</h3>
+        <p id="heightResult">Height of the tree: </p>
+    </div>
+
+    <div id="result"></div>
+
+    <div id="treeContainer">
+        <div id="treeDisplay"></div>
+    </div>
+
+    <script src="binarySearchTreejs.js"></script>
+
+</body>
+
+</html>

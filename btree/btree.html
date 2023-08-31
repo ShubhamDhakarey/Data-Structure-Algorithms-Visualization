@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTree</title>
+    <link rel="stylesheet" href="binarySearchTreecss.css">
+
+
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#createTreeButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#dropdownContainer {
+    display: none;
+    margin-top: 20px;
+}
+
+#operationDropdown {
+    font-size: 16px;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+#inputContainer {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#valuesInput {
+    font-size: 16px;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+
+
+#treeDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+
+.node {
+    margin: 5px;
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    /* background-color: #2196f3; */
+    background-color: #a6f321;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+    border: 2px solid red;
+}
+
+
+
+
+
+#randomArrayButton,
+#insertValuesButton {
+    display: none;
+}
+
+
+/* ... your existing styles ... */
+
+#optionButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#randomArrayButton,
+#insertValuesButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0;
+    margin: 10px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Center the text within the buttons */
+#randomArrayButton,
+#insertValuesButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hover effect for buttons */
+#randomArrayButton:hover,
+#insertValuesButton:hover {
+    background-color: #ffcc80;
+}
+
+
+
+
+
+#valuesInput::placeholder {
+    color: #999;
+}
+
+#performOperationButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#randomArrayButton1{
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#performOperationButton:hover {
+    background-color: #ff7043;
+}
+
+
+/* Your existing styles */
+
+
+.navbar {
+    background-color: #333;
+    /* overflow: hidden; */
+    color: white;
+    text-align: center;
+    height: 95px;
+    /* padding: 5px; */
+}
+
+.navbar h2 {
+    margin: 0;
+    padding: 8px;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid green; */
+    height: 50px;
+}
+
+.nav-buttons button {
+    /* background-color: #555; */
+    background-color: #333;
+
+    border: none;
+    border: 1px solid #333;
+
+    color: #556B2F;
+    font-weight: bold;
+    padding: 8px 20px;
+    margin: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-buttons button:hover {
+    /* background-color: #777; */
+    border: 1px solid #556B2F;
+    /* font-size: 14px; */
+
+}
+
+
+
+
+
+.popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1;
+}
+
+.popup h3 {
+    margin-top: 0;
+}
+
+.popup input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.highlight {
+    background-color: black;
+}
+
+.node-connector {
+    position: absolute;
+    /* width: 2px; */
+    background-color: #2196f3;
+    margin: 33px -29px;
+    /* z-index: 2; */
+    opacity: .4;
+    border: .5px solid red;
+    /* margin: 5px; */
+    /* Ensure the connectors are fully visible */
+    /* visibility: visible; */
+    /* Ensure the connectors are visible */
+}
+
+#treeContainer {
+
+    position: relative;
+
+    /* Adjust the height as needed */
+    height: 75vh;
+    /* margin-bottom: 20px; */
+    border: 1px solid #ccc;
+    background-color: white;
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Binary Tree Operations</h2>
+        <div class="nav-buttons">
+            <button id="insertButton">Insert</button>
+            <!-- <button id="updateButton" onclick="showValuesInput()">Update</button> -->
+            <button id="deleteButton">Delete</button>
+            <button id="searchButton">Search</button>
+            <button id="minButton">Min</button>
+            <button id="maxButton">Max</button>
+            <button id="heightButton">Height</button>
+        </div>
+    </div>
+
+
+    <h1>Binary Search Tree Creation</h1>
+
+
+    <button id="createTreeButton" onclick="showOptions()">Create Tree</button>
+
+    <div id="optionButtons" style="display: none;">
+        <button id="randomArrayButton" onclick="createRandomArray()">Random Array</button>
+        <button id="insertValuesButton" onclick="showValuesInput()">Insert Values</button>
+    </div>
+
+    <div id="inputContainer" style="display: none;">
+        <input type="text" id="valuesInput" placeholder="Enter values (comma-separated)">
+        <div id="inputButtonsContainer">
+            <button id="performOperationButton" onclick="insertValuesManually()">Perform Operation</button>
+            <button id="randomArrayButton1" onclick="createRandomArray()" style="display: none;">Random Array</button>
+        </div>
+    </div>
+
+
+
+    <div id="deletePopup" class="popup">
+        <h3>Delete Node</h3>
+        <input type="text" id="deleteInput" placeholder="Enter value to delete">
+        <button id="performDeleteButton" onclick="performDelete()">Perform Action</button>
+    </div>
+
+
+    <div id="searchPopup" class="popup">
+        <h3>Search Node</h3>
+        <input type="text" id="searchInput" placeholder="Enter value to search">
+        <button id="performSearchButton" onclick="performSearch()">Perform Action</button>
+    </div>
+
+    <div id="insertPopup" class="popup">
+        <h3>Insert Node</h3>
+        <input type="text" id="insertInput" placeholder="Enter value to insert">
+        <button id="performInsertButton" onclick="performInsert()">Perform Action</button>
+    </div>
+
+    <div id="minPopup" class="popup">
+        <h3>Find Minimum</h3>
+        <button id="performMinButton" onclick="performFindMin()">Find Minimum</button>
+    </div>
+
+
+    <div id="maxPopup" class="popup">
+        <h3>Find Maximum</h3>
+        <button id="performMaxButton" onclick="performFindMax()">Find Maximum</button>
+    </div>
+
+
+    <!-- <button id="heightButton">Height</button> -->
+    <div id="heightPopup" class="popup">
+        <h3>Tree Height</h3>
+        <p id="heightResult">Height of the tree: </p>
+    </div>
+
+    <div id="result"></div>
+
+    <div id="treeContainer">
+        <div id="treeDisplay"></div>
+    </div>
+
+    <script src="binarySearchTreejs.js"></script>
+
+</body>
+
+</html>
+<script>
+    
+// Get the buttons
+const deleteButton = document.getElementById('deleteButton');
+const searchButton = document.getElementById('searchButton');
+const minButton = document.getElementById('minButton');
+const maxButton = document.getElementById('maxButton');
+const heightButton = document.getElementById('heightButton');
+
+// Add click event listeners to the buttons
+deleteButton.addEventListener('click', deleteValue);
+searchButton.addEventListener('click', searchValue);
+minButton.addEventListener('click', findMin);
+maxButton.addEventListener('click', findMax);
+heightButton.addEventListener('click', calculateHeight);
+
+function insertValue() {
+    // Insert logic
+}
+
+function updateValue() {
+    // Update logic
+}
+
+function deleteValue() {
+    // Delete logic
+}
+
+function searchValue() {
+    // Search logic
+}
+
+function findMin() {
+    // Min value logic
+}
+
+function findMax() {
+    // Max value logic
+}
+
+function calculateHeight() {
+    // Height calculation logic
+}
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BinaryTree {
+    constructor() {
+        this.root = null;
+    }
+
+    insert(value) {
+        const newNode = new Node(value);
+
+        if (!this.root) {
+            this.root = newNode;
+        } else {
+            this._insertNode(this.root, newNode);
+        }
+    }
+
+    _insertNode(node, newNode) {
+        if (newNode.value < node.value) {
+            if (!node.left) {
+                node.left = newNode;
+            } else {
+                this._insertNode(node.left, newNode);
+            }
+        } else {
+            if (!node.right) {
+                node.right = newNode;
+            } else {
+                this._insertNode(node.right, newNode);
+            }
+        }
+    }
+
+
+
+
+    delete(value) {
+        this.root = this._deleteNode(this.root, value);
+    }
+
+    _deleteNode(node, value) {
+        if (!node) {
+            return null;
+        }
+
+        if (value < node.value) {
+            node.left = this._deleteNode(node.left, value);
+        } else if (value > node.value) {
+            node.right = this._deleteNode(node.right, value);
+        } else {
+            // Node with only one child or no child
+            if (!node.left) {
+                return node.right;
+            } else if (!node.right) {
+                return node.left;
+            }
+
+            // Node with two children: Get the inorder successor (smallest in the right subtree)
+            node.value = this._getMinValue(node.right);
+
+            // Delete the inorder successor
+            node.right = this._deleteNode(node.right, node.value);
+        }
+
+        return node;
+    }
+
+    _getMinValue(node) {
+        while (node.left) {
+            node = node.left;
+        }
+        return node.value;
+    }
+
+
+
+
+
+    search(value) {
+        return this._searchNode(this.root, value);
+    }
+
+    _searchNode(node, value) {
+        if (!node || node.value === value) {
+            return node;
+        }
+
+        if (value < node.value) {
+            return this._searchNode(node.left, value);
+        } else {
+            return this._searchNode(node.right, value);
+        }
+    }
+
+
+
+
+    getHeight() {
+        return this._getHeight(this.root);
+    }
+
+    _getHeight(node) {
+        if (!node) {
+            return -1; // Height of an empty tree is -1
+        }
+
+        const leftHeight = this._getHeight(node.left);
+        const rightHeight = this._getHeight(node.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+
+
+    // Add other tree-related methods here
+}
+// const deleteButton = document.getElementById('deleteButton');
+const deletePopup = document.getElementById('deletePopup');
+const deleteInput = document.getElementById('deleteInput');
+
+function showDeletePopup() {
+    deletePopup.style.display = 'block';
+}
+
+function hideDeletePopup() {
+    deletePopup.style.display = 'none';
+}
+
+deleteButton.addEventListener('click', showDeletePopup);
+
+function performDelete() {
+    const valueToDelete = parseInt(deleteInput.value.trim(), 10);
+    if (!isNaN(valueToDelete)) {
+        binaryTree.delete(valueToDelete);
+        updateTreeDisplay();
+        hideDeletePopup();
+    } else {
+        alert('Please enter a valid value to delete.');
+    }
+}
+
+
+const binaryTree = new BinaryTree();
+const createTreeButton = document.getElementById('createTreeButton');
+const optionButtons = document.getElementById('optionButtons');
+const randomArrayButton = document.getElementById('randomArrayButton');
+const insertValuesButton = document.getElementById('insertValuesButton');
+const inputContainer = document.getElementById('inputContainer');
+const valuesInput = document.getElementById('valuesInput');
+const treeDisplay = document.getElementById('treeDisplay');
+const randomArrayButton1 = document.getElementById('randomArrayButton1');
+
+
+function showOptions() {
+    createTreeButton.style.display = 'none';
+    optionButtons.style.display = 'flex';
+    fadeInElement(randomArrayButton);
+    fadeInElement(insertValuesButton);
+}
+
+function fadeInElement(element) {
+    let opacity = 0;
+    element.style.display = 'block';
+    const fadeInInterval = setInterval(() => {
+        if (opacity < 1) {
+            opacity += 0.1;
+            element.style.opacity = opacity;
+        } else {
+            clearInterval(fadeInInterval);
+        }
+    }, 100);
+}
+
+function showValuesInput() {
+    optionButtons.style.display = 'none';
+    inputContainer.style.display = 'flex';
+    randomArrayButton1.style.display = 'initial'; // Show the random array button
+
+}
+
+// ... (your existing code)
+
+function createRandomArray() {
+    const randomValues = [];
+    const numValues = 10; // Generate 10 random values
+
+    for (let i = 0; i < numValues; i++) {
+        randomValues.push(Math.floor(Math.random() * 100) + 1); // Random values between 1 and 100
+    }
+
+    buildTree(randomValues);
+}
+
+function insertValuesManually() {
+    const values = valuesInput.value.split(',').map(val => parseInt(val.trim(), 10));
+
+    if (values.length > 10) {
+        alert('Please enter up to 10 values.');
+        return;
+    }
+
+    buildTree(values);
+}
+
+// ... (your existing code)
+
+
+function buildTree(values) {
+    binaryTree.root = null;
+
+    for (const value of values) {
+        binaryTree.insert(value);
+    }
+
+    updateTreeDisplay();
+}
+
+
+function updateTreeDisplay(highlightedNodeValue = null) {
+    treeDisplay.innerHTML = '';
+    displayTree(binaryTree.root, treeDisplay.offsetWidth / 2, 20, null, -20);
+    if (highlightedNodeValue !== null) {
+        highlightNodeWithValue(highlightedNodeValue);
+    }
+}
+
+function displayTree(node, x, y, parentX = null, parentY = null, level = 0) {
+    if (!node) return;
+
+    // Create the node element
+    const newNode = document.createElement('div');
+    newNode.className = 'node';
+    newNode.textContent = node.value;
+    newNode.setAttribute('data-value', node.value); // Add this line
+    newNode.style.left = `${x}px`;
+    newNode.style.top = `${y}px`;
+
+
+    // Create a connector (line) between parent and child nodes
+    if (parentX !== null && parentY !== null) {
+        const connector = document.createElement('div');
+        connector.className = 'node-connector';
+
+        const midX = (x + parentX) / 2;
+        const midY = (y + parentY) / 2;
+
+        const angle = Math.atan2(y - parentY, x - parentX);
+        const distance = Math.sqrt((x - parentX) ** 2 + (y - parentY) ** 2);
+
+        connector.style.width = `${distance}px`;
+        connector.style.transform = `rotate(${angle}rad)`;
+        connector.style.left = `${midX}px`;
+        connector.style.top = `${midY}px`;
+
+        treeDisplay.appendChild(connector);
+    }
+
+    const horizontalSpacings = [130, 100, 70, 40]; // Adjust these values for different levels
+
+    // Check if the current level has a custom horizontal spacing
+    const horizontalSpacing = horizontalSpacings[level] || 50;
+
+    treeDisplay.appendChild(newNode);
+
+    // Recursively display left and right subtrees
+    if (node.left) {
+        const leftX = x - horizontalSpacing;
+        const leftY = y + 60;
+        displayTree(node.left, leftX, leftY, x, y, level + 1);
+    }
+    if (node.right) {
+        const rightX = x + horizontalSpacing;
+        const rightY = y + 60;
+        displayTree(node.right, rightX, rightY, x, y, level + 1);
+    }
+}
+
+
+
+
+
+const searchPopup = document.getElementById('searchPopup');
+const searchInput = document.getElementById('searchInput');
+
+function showSearchPopup() {
+    searchPopup.style.display = 'block';
+}
+
+function hideSearchPopup() {
+    searchPopup.style.display = 'none';
+}
+
+searchButton.addEventListener('click', showSearchPopup);
+
+function performSearch() {
+    const valueToSearch = parseInt(searchInput.value.trim(), 10);
+    if (!isNaN(valueToSearch)) {
+        searchAndHighlight(valueToSearch);
+        hideSearchPopup();
+    } else {
+        alert('Please enter a valid value to search.');
+    }
+}
+
+function searchAndHighlight(value) {
+    unhighlightAllNodes();
+    const foundNode = binaryTree.search(value);
+    if (foundNode) {
+        highlightNode(foundNode);
+    } else {
+        alert('Value not found in the tree.');
+    }
+}
+
+
+function highlightNode(node) {
+    const nodeElement = document.querySelector(`.node[data-value="${node.value}"]`);
+    if (nodeElement) {
+        nodeElement.classList.add('highlight');
+    }
+}
+
+function unhighlightAllNodes() {
+    const highlightedNodes = document.querySelectorAll('.highlight');
+    for (const node of highlightedNodes) {
+        node.classList.remove('highlight');
+    }
+}
+
+
+
+
+
+
+
+const insertButton = document.getElementById('insertButton');
+const insertPopup = document.getElementById('insertPopup');
+const insertInput = document.getElementById('insertInput');
+
+function showInsertPopup() {
+    insertPopup.style.display = 'block';
+}
+
+function hideInsertPopup() {
+    insertPopup.style.display = 'none';
+}
+
+insertButton.addEventListener('click', showInsertPopup);
+
+function performInsert() {
+    const valueToInsert = parseInt(insertInput.value.trim(), 10);
+    if (!isNaN(valueToInsert)) {
+        binaryTree.insert(valueToInsert);
+        updateTreeDisplay();
+        hideInsertPopup();
+    } else {
+        alert('Please enter a valid value to insert.');
+    }
+}
+
+
+
+
+
+const minPopup = document.getElementById('minPopup');
+
+function showMinPopup() {
+    minPopup.style.display = 'block';
+}
+
+function hideMinPopup() {
+    minPopup.style.display = 'none';
+}
+
+minButton.addEventListener('click', showMinPopup);
+
+function performFindMin() {
+    const minValue = findMinValue(binaryTree.root);
+    if (minValue !== null) {
+        highlightNodeWithValue(minValue);
+        hideMinPopup();
+    } else {
+        alert('The tree is empty.');
+    }
+}
+
+function findMinValue(node) {
+    if (!node) return null;
+    hideMinPopup();
+
+    while (node.left) {
+        node = node.left;
+    }
+
+    return node.value;
+}
+
+function highlightNodeWithValue(value) {
+    unhighlightAllNodes();
+    const nodeToHighlight = findNodeWithValue(binaryTree.root, value);
+    if (nodeToHighlight) {
+        highlightNode(nodeToHighlight);
+        nodeToHighlight.style.backgroundColor = 'black'; // Change background color
+        hideMinPopup();
+    }
+}
+
+function findNodeWithValue(node, value) {
+    if (!node) return null;
+
+    if (node.value === value) {
+        return node;
+    } else if (value < node.value) {
+        return findNodeWithValue(node.left, value);
+    } else {
+        return findNodeWithValue(node.right, value);
+    }
+}
+
+
+
+
+const maxPopup = document.getElementById('maxPopup');
+
+function showMaxPopup() {
+    maxPopup.style.display = 'block';
+}
+
+function hideMaxPopup() {
+    maxPopup.style.display = 'none';
+}
+
+maxButton.addEventListener('click', showMaxPopup);
+
+function performFindMax() {
+    const maxValue = findMaxValue(binaryTree.root);
+    if (maxValue !== null) {
+        highlightNodeWithValue(maxValue);
+        hideMaxPopup();
+    } else {
+        alert('The tree is empty.');
+    }
+}
+
+function findMaxValue(node) {
+    if (!node) return null;
+    hideMaxPopup();
+
+    while (node.right) {
+        node = node.right;
+    }
+
+    return node.value;
+}
+
+
+
+
+// const heightButton = document.getElementById('heightButton');
+const heightPopup = document.getElementById('heightPopup');
+const heightResult = document.getElementById('heightResult');
+
+function showHeightPopup() {
+    calculateHeight();
+    heightPopup.style.display = 'block';
+    setTimeout(hideHeightPopup, 2000); // Hide after 2 seconds
+}
+
+function hideHeightPopup() {
+    heightPopup.style.display = 'none';
+}
+
+heightButton.addEventListener('click', showHeightPopup);
+
+function calculateHeight() {
+    const treeHeight = binaryTree.getHeight();
+    heightResult.textContent = `Height of the tree: ${treeHeight}`;
+}
+
+
+</script>

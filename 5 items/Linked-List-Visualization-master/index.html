@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+		<link rel="icon" href="img/pointer.png"/>
+
+		<link rel="stylesheet" href="vendor/css/fontawesome.css" />
+
+
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/responisve.css" />
+		<title>Linked List Visualization</title>
+	</head>
+	
+	<body>
+
+		<div id="settings">
+			<div class="menu-header">
+				<div id="close-menu">
+					<i class="fas fa-times"></i>
+				</div>
+				<div><h2>Settings</h2></div>
+			</div>
+
+			<div class="settings-container">
+					<div>
+						<p>Node Animation Speed: </p>
+						<input type="number" placeholder="Miliseconds" />
+					</div>
+		
+					<div>
+						<p>Pointer Animation Speed: </p>
+						<input type="number" placeholder="Miliseconds" />
+					</div>
+
+					<div>
+						<p>Delete Animation Speed: </p>
+						<input type="number" placeholder="Miliseconds" />
+					</div>
+
+					<div class="error-message">
+						<p id="settings-error"></p>
+					</div>
+
+					<div class="success">
+						<p id="succes"></p>
+					</div>
+		
+					<button id="save-settings">Save</button>
+			</div>			
+		</div>
+
+		<header>
+			<div class="header-container">
+				
+				<div>
+					<h1>Linked <span>List</span> Visualization</h1>
+				</div>
+
+			</div>
+			<div class="gradient-border"></div>
+		</header>
+
+		<main>
+			<section class="list" id="list"></section>
+
+			<section class="errors">
+				<div class="error-message">
+					<p id="error"></p>
+				</div>
+			</section>
+
+			<section class="operations">
+				<div class="wrapper">
+					<div>
+						<button class="button" id="set-btn">Set</button>
+						<input type="number" placeholder="Index" />
+						<input type="number" placeholder="Data" />
+					</div>
+
+					<div>
+						<button class="button" id="insert-btn">Insert</button>
+						<input type="number" placeholder="Index" />
+						<input type="number" placeholder="Data" />
+					</div>
+
+					<div>
+						<button class="button" id="add-btn">Add</button>
+						<input type="number" placeholder="Data" />
+					</div>
+
+					<div>
+						<div class="remove">
+							<button class="button" id="remove-btn">Remove</button>
+							<button class="button" id="remove-settings">
+								<i class="fas fa-cog"></i>
+							</button>
+						</div>
+
+						<button class="remove-option" id="remove-index-btn">
+							Index
+						</button>
+						<button class="remove-option" id="remove-data-btn">
+							Data
+						</button>
+
+						<input type="number" placeholder="Index" />
+						<input type="number" placeholder="Data" />
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<script src="js/LinkedList.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
